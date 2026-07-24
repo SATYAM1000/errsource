@@ -1,63 +1,25 @@
 {
-  "name": "@satyamx/vite-plugin-errsource",
-  "version": "0.1.0",
-  "description": "A vite plugin that uploads the source map to the server and helps to find the exact line number of the error from the stack trace",
+  "name": "errsource",
+  "private": true,
+  "description": "Self-hosted error tracker — Vite plugin, browser SDK, and symbolication server",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "files": [
-    "dist"
+  "workspaces": [
+    "packages/*"
   ],
-  "sideEffects": false,
-  "engines": {
-    "node": ">=18"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "build": "tsup",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run lint && npm run format:check && npm run typecheck && npm run build"
+    "format:check": "prettier --check ."
   },
-  "keywords": [
-    "vite",
-    "vite-plugin",
-    "source-map",
-    "error-tracking",
-    "stack-trace"
-  ],
-  "author": "Satyam Kumar",
-  "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.1.1",
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.6",
-    "tsup": "^8.5.1",
     "typescript": "~5.7.3",
-    "typescript-eslint": "^8.65.0",
-    "vite": "^8.1.5"
-  },
-  "peerDependencies": {
-    "vite": ">=5"
+    "typescript-eslint": "^8.65.0"
   }
 }

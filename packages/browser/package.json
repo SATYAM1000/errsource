@@ -1,0 +1,10 @@
+{
+  "name": "@satyamx/errsource-browser",
+  "version": "0.0.0",
+  "description": "Tiny browser SDK that captures errors and reports them to your errsource server",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}

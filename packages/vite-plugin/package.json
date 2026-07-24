@@ -1,0 +1,53 @@
+{
+  "name": "@satyamx/vite-plugin-errsource",
+  "version": "0.1.0",
+  "description": "A vite plugin that uploads the source map to the server and helps to find the exact line number of the error from the stack trace",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run build"
+  },
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "source-map",
+    "error-tracking",
+    "stack-trace"
+  ],
+  "author": "Satyam Kumar",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "tsup": "^8.5.1",
+    "vite": "^8.1.5"
+  },
+  "peerDependencies": {
+    "vite": ">=5"
+  }
+}
