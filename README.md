@@ -4,8 +4,8 @@ Self-hosted error tracking for Vite apps — see the real file, line, and code b
 
 ## Packages
 
-| Package                                                  | What it does                                                                   | Status |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------ | ------ |
+| Package                                                    | What it does                                                                   | Status |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------ | ------ |
 | [`@satyamx55/vite-plugin-errsource`](packages/vite-plugin) | Uploads source maps to your server at build time, keyed by release             | ready  |
 | [`@satyamx55/errsource-browser`](packages/browser)         | Captures `window.onerror` / unhandled rejections and reports them              | wip    |
 | [`@satyamx55/errsource-server`](packages/server)           | Stores maps, symbolicates stack traces back to original source, notifies Slack | wip    |

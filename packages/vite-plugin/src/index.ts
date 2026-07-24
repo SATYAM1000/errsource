@@ -108,15 +108,26 @@ function errorSource(options: ErrorSourceOptions): Plugin {
       }
 
       if (options.cleanupMaps !== false) {
+        // only delete maps the server actually has — a failed upload's map
+        // is the last copy in existence, deleting it would make that
+        // release impossible to symbolicate
+        const uploaded = results.filter((r) => r.ok).map((r) => r.fileName);
         const outDir = path.resolve(config.root, config.build.outDir);
         await Promise.all(
-          maps.map(([fileName]) =>
+          uploaded.map((fileName) =>
             rm(path.join(outDir, fileName), { force: true })
           )
         );
-        config.logger.info(
-          `[errsource] removed ${maps.length} map file(s) from ${config.build.outDir}`
-        );
+        if (uploaded.length > 0) {
+          config.logger.info(
+            `[errsource] removed ${uploaded.length} uploaded map file(s) from ${config.build.outDir}`
+          );
+        }
+        if (failed.length > 0) {
+          this.warn(
+            `[errsource] kept ${failed.length} map file(s) in ${config.build.outDir} because their upload failed — do not deploy them publicly`
+          );
+        }
       }
     },
   };
