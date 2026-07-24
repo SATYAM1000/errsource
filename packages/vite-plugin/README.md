@@ -1,4 +1,4 @@
-# @satyamx/vite-plugin-errsource
+# @satyamx55/vite-plugin-errsource
 
 A Vite plugin that uploads your production source maps to your own server at build time — so minified stack traces like `index-DkA9f3.js:1:45231` can be resolved back to the real file, line, and code that caused the error.
 
@@ -16,7 +16,7 @@ When an error happens in production, the browser reports positions inside your m
 ## Install
 
 ```bash
-npm install -D @satyamx/vite-plugin-errsource
+npm install -D @satyamx55/vite-plugin-errsource
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ npm install -D @satyamx/vite-plugin-errsource
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite';
-import errsource from '@satyamx/vite-plugin-errsource';
+import errsource from '@satyamx55/vite-plugin-errsource';
 
 export default defineConfig({
   plugins: [

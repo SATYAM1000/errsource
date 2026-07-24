@@ -1,5 +1,5 @@
 {
-  "name": "@satyamx/errsource-server",
+  "name": "@satyamx55/errsource-server",
   "version": "0.0.0",
   "description": "Symbolication server — stores source maps, resolves minified stack traces to original file:line, and notifies Slack",
   "type": "module",

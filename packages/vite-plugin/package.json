@@ -1,5 +1,5 @@
 {
-  "name": "@satyamx/vite-plugin-errsource",
+  "name": "@satyamx55/vite-plugin-errsource",
   "version": "0.1.0",
   "description": "A vite plugin that uploads the source map to the server and helps to find the exact line number of the error from the stack trace",
   "type": "module",
