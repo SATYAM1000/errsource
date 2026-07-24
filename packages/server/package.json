@@ -1,10 +1,25 @@
 {
   "name": "@satyamx55/errsource-server",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Symbolication server — stores source maps, resolves minified stack traces to original file:line, and notifies Slack",
   "type": "module",
   "private": true,
   "scripts": {
+    "dev": "node --env-file-if-exists=.env src/index.ts",
+    "start": "node --env-file-if-exists=.env src/index.ts",
     "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "author": "Satyam Kumar",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1095.0",
+    "@hono/node-server": "^1.19.8",
+    "hono": "^4.11.9"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1"
   }
 }

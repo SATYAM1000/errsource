@@ -1,6 +1,9 @@
 dist/
 coverage/
 node_modules/
+.env
+.env.*
+storage/
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
