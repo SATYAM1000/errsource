@@ -1,6 +1,9 @@
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { symbolicate, formatFrames } from '../symbolicate/index.ts';
+import { fingerprint, culpritOf } from '../fingerprint.ts';
+import { recordEvent } from '../db.ts';
+import { notifyNewIssue } from '../slack.ts';
 
 interface ErrorReport {
   type: 'error' | 'unhandledrejection' | 'manual';
@@ -39,19 +42,29 @@ errors.post(
       return c.json({ error: 'invalid report' }, 400);
     }
 
+    const frames = report.stack
+      ? await symbolicate(report.release, report.stack)
+      : [];
+
+    const fp = fingerprint(report.message, frames);
+    const { issue, isNew } = recordEvent(fp, culpritOf(frames), {
+      type: report.type ?? 'error',
+      message: report.message,
+      release: report.release,
+      url: report.url,
+      userAgent: report.userAgent,
+      frames,
+      context: report.context,
+    });
+
     console.log(
-      `\n[errors] [${report.type}] "${report.message}" @ release ${report.release}`
+      `\n[errors] ${isNew ? 'NEW ISSUE' : `issue #${issue.id} (x${issue.count})`} [${report.type}] "${report.message}" @ ${report.release}`
     );
+    if (frames.length > 0) console.log(formatFrames(frames));
 
-    if (report.stack) {
-      const frames = await symbolicate(report.release, report.stack);
-      console.log(formatFrames(frames));
-    }
-    if (report.context) {
-      console.log(`  context: ${JSON.stringify(report.context)}`);
-    }
+    if (isNew) void notifyNewIssue(issue, frames);
 
-    return c.json({ ok: true });
+    return c.json({ ok: true, issueId: issue.id });
   }
 );
 

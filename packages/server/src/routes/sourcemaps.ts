@@ -1,28 +1,12 @@
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
-import { config } from '../config.ts';
+import { requireApiKey } from '../auth.ts';
 import { saveMap } from '../storage.ts';
 
 const sourcemaps = new Hono();
 
-let warnedNoKey = false;
-
 /** Bearer auth — this endpoint receives your source code, keep it locked. */
-sourcemaps.use('*', async (c, next) => {
-  if (!config.apiKey) {
-    if (!warnedNoKey) {
-      console.warn(
-        '[auth] ERRSOURCE_API_KEY is not set — accepting ALL uploads (dev mode only!)'
-      );
-      warnedNoKey = true;
-    }
-    return next();
-  }
-  if (c.req.header('authorization') !== `Bearer ${config.apiKey}`) {
-    return c.json({ error: 'unauthorized' }, 401);
-  }
-  return next();
-});
+sourcemaps.use('*', requireApiKey);
 
 sourcemaps.post(
   '/',

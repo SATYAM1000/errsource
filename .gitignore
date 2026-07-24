@@ -4,6 +4,7 @@ node_modules/
 .env
 .env.*
 storage/
+*.db
 package-lock.json
 pnpm-lock.yaml
 yarn.lock

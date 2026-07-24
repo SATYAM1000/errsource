@@ -15,6 +15,10 @@ const config = {
   awsRegion: process.env.AWS_REGION ?? 'ap-south-1',
   /** Local fallback directory, used only when S3_BUCKET is unset. */
   storageDir: process.env.ERRSOURCE_STORAGE ?? 'storage',
+  /** SQLite database file for issues and events. */
+  dbPath: process.env.ERRSOURCE_DB ?? 'errsource.db',
+  /** Slack incoming-webhook url. Unset = Slack alerts disabled. */
+  slackWebhookUrl: process.env.SLACK_WEBHOOK_URL,
 };
 
 export { config };

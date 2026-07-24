@@ -4,15 +4,19 @@
   "description": "Self-hosted error tracker — Vite plugin, browser SDK, and symbolication server",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build --workspace=packages/vite-plugin --workspace=packages/browser",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "server": "npm run dev --workspace=packages/server",
+    "demo:build": "npm run build && npm run build --workspace=examples/vite-app",
+    "demo": "npm run preview --workspace=examples/vite-app"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

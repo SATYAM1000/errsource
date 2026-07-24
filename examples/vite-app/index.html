@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>errsource example</title>
+    <style>
+      body {
+        font-family: ui-monospace, monospace;
+        max-width: 640px;
+        margin: 4rem auto;
+        line-height: 1.6;
+      }
+      button {
+        display: block;
+        margin: 0.5rem 0;
+        padding: 0.6rem 1rem;
+        font: inherit;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>errsource example</h1>
+    <p>
+      This app was built with hidden source maps that were uploaded to your
+      errsource server. Click a button, then look at the server terminal — the
+      minified stack trace arrives symbolicated back to
+      <code>src/main.ts</code> with a code snippet.
+    </p>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
