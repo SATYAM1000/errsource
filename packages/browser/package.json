@@ -1,10 +1,39 @@
 {
   "name": "@satyamx55/errsource-browser",
-  "version": "0.0.0",
-  "description": "Tiny browser SDK that captures errors and reports them to your errsource server",
+  "version": "0.1.0",
+  "description": "Tiny, dependency-free browser SDK that captures uncaught errors and reports them to your errsource server",
   "type": "module",
-  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run build"
+  },
+  "keywords": [
+    "error-tracking",
+    "error-monitoring",
+    "browser",
+    "sdk",
+    "window.onerror",
+    "unhandledrejection"
+  ],
+  "author": "Satyam Kumar",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.5.1"
   }
 }
