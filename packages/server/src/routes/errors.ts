@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
+import { symbolicate, formatFrames } from '../symbolicate/index.ts';
 
 interface ErrorReport {
   type: 'error' | 'unhandledrejection' | 'manual';
@@ -38,17 +39,16 @@ errors.post(
       return c.json({ error: 'invalid report' }, 400);
     }
 
-    // milestone 2: symbolicate report.stack against the stored maps here
     console.log(
-      `[errors] [${report.type}] "${report.message}" @ release ${report.release}`
+      `\n[errors] [${report.type}] "${report.message}" @ release ${report.release}`
     );
+
     if (report.stack) {
-      console.log(
-        report.stack
-          .split('\n')
-          .map((l) => `    ${l.trim()}`)
-          .join('\n')
-      );
+      const frames = await symbolicate(report.release, report.stack);
+      console.log(formatFrames(frames));
+    }
+    if (report.context) {
+      console.log(`  context: ${JSON.stringify(report.context)}`);
     }
 
     return c.json({ ok: true });
